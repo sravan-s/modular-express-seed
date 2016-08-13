@@ -1,0 +1,30 @@
+{
+  "name": "modular-express-seed",
+  "version": "1.0.0",
+  "description": "Seed project for creating a modular expressjs based project structure",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sravan-s/modular-express-seed.git"
+  },
+  "keywords": [
+    "modular-express"
+  ],
+  "author": "ess_Ess <sravans2011@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sravan-s/modular-express-seed/issues"
+  },
+  "homepage": "https://github.com/sravan-s/modular-express-seed#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.3.0",
+    "nodemon": "^1.10.0"
+  }
+}
