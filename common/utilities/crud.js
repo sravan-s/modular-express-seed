@@ -9,7 +9,7 @@ function _post(model, req, res) {
       'success': 'true'
     });
   });
-};
+}
 
 function _put(model, req, res) {
   let q = {
@@ -28,7 +28,7 @@ function _put(model, req, res) {
       'success': 'true'
     });
   });
-};
+}
 
 function _get(model, req, res) {
   let m = new model(req.body);
@@ -38,7 +38,7 @@ function _get(model, req, res) {
     }
     res.send(data);
   });
-};
+}
 
 function _delete(model, req, res) {
   let m = new model();
@@ -53,7 +53,7 @@ function _delete(model, req, res) {
       });
     }
   });
-};
+}
 
 var crud = function(action, model, req, res) {
   switch (action) {
