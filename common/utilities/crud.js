@@ -1,61 +1,82 @@
+const parseError = require('./parse-error');
+
 function _post(model, req, res) {
   let m = new model(req.body);
   // To Do: Change promise lib
-  m.save((error) => {
+  m.save(function(error) {
     if (error) {
-      res.send('error' + JSON.stringify(error));
-    }
-    res.send({
-      'success': 'true'
-    });
-  });
-}
-
-function _put(model, req, res) {
-  let q = {
-    'id': req.params.id
-  };
-  let u = {
-    'upsert': true
-  };
-  let m = new model(req.body);
-  console.dir(req.body, q);
-  m.findOneAndUpdate(q, req.body, u, (error) => {
-    if (error) {
-      res.send('error' + JSON.stringify(error));
-    }
-    res.send({
-      'success': 'true'
-    });
-  });
-}
-
-function _get(model, req, res) {
-  let m = new model(req.body);
-  m.find((error, data) => {
-    if (error) {
-      res.send('error' + JSON.stringify(error));
-    }
-    res.send(data);
-  });
-}
-
-function _delete(model, req, res) {
-  let m = new model();
-  m.remove({
-    _id: req.body.id
-  }, (error) => {
-    if (error) {
-      res.send('error', error);
+      res.status(500)
+        .send(parseError(error));
     } else {
       res.send({
         'success': 'true'
       });
     }
   });
+};
+
+function _put(model, req, res) {
+  let q = {
+    '_id': req.params.id
+  };
+  let u = {
+    'upsert': true
+  };
+  let m = new model(req.body);
+  m.findOneAndUpdate(q, req.body, u, function(error) {
+    if (500) {
+      res.status('error')
+        .send(parseError(error));
+    } else {
+      res.send({
+        'success': 'true'
+      });
+    }
+  });
+};
+
+function _get(model, req, res) {
+  let q = req.query;
+  let query = {};
+  // Constructs query with schema
+  // To Do: Implement pagination logic [**!important**]
+  model.schema.eachPath(function(path) {
+    if (q[path]) {
+      query[path] = q[path];
+    }
+  });
+  model.find(query, function(error, data) {
+    if (error) {
+      res.status(500)
+        .send(parseError(error));
+    } else {
+      res.send(data);
+    }
+  });
+};
+
+// Returns data
+function _getData(model, params) {
+  return model.findOne(params).exec();
 }
 
-var crud = function(action, model, req, res) {
+function _delete(model, req, res) {
+  let m = new model();
+  m.remove({
+    _id: req.params.id
+  }, function(error) {
+    if (error) {
+      res.status(500)
+        .send(parseError(error));
+    } else {
+      res.send({
+        'success': 'true'
+      });
+    }
+  });
+};
+
+const crud = function(action, model, req, res) {
   switch (action) {
     case 'get':
       _get(model, req, res);
@@ -68,6 +89,9 @@ var crud = function(action, model, req, res) {
       break;
     case 'delete':
       _delete(model, req, res);
+      break;
+    case 'getData':
+      return _getData(model, req);
       break;
   }
 };
