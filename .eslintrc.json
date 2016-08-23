@@ -26,6 +26,7 @@
     "globals": {
         "require": true,
         "module": true,
-        "console": true
+        "console": true,
+        "mongoose": true
     }
 }

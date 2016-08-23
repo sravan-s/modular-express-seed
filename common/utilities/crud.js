@@ -13,7 +13,7 @@ function _post(model, req, res) {
       });
     }
   });
-};
+}
 
 function _put(model, req, res) {
   let q = {
@@ -24,8 +24,8 @@ function _put(model, req, res) {
   };
   let m = new model(req.body);
   m.findOneAndUpdate(q, req.body, u, function(error) {
-    if (500) {
-      res.status('error')
+    if (error) {
+      res.status(500)
         .send(parseError(error));
     } else {
       res.send({
@@ -33,7 +33,7 @@ function _put(model, req, res) {
       });
     }
   });
-};
+}
 
 function _get(model, req, res) {
   let q = req.query;
@@ -53,7 +53,7 @@ function _get(model, req, res) {
       res.send(data);
     }
   });
-};
+}
 
 // Returns data
 function _getData(model, params) {
@@ -74,25 +74,24 @@ function _delete(model, req, res) {
       });
     }
   });
-};
+}
 
 const crud = function(action, model, req, res) {
   switch (action) {
-    case 'get':
-      _get(model, req, res);
-      break;
-    case 'put':
-      _put(model, req, res);
-      break;
-    case 'post':
-      _post(model, req, res);
-      break;
-    case 'delete':
-      _delete(model, req, res);
-      break;
-    case 'getData':
-      return _getData(model, req);
-      break;
+  case 'get':
+    _get(model, req, res);
+    break;
+  case 'put':
+    _put(model, req, res);
+    break;
+  case 'post':
+    _post(model, req, res);
+    break;
+  case 'delete':
+    _delete(model, req, res);
+    break;
+  case 'getData':
+    return _getData(model, req);
   }
 };
 

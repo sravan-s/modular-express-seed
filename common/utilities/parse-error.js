@@ -1,7 +1,7 @@
 const parseError = function(req) {
   var parsed = {};
-  console.log(req);
-  return req;
-}
+  parsed.orginal = req;
+  return parsed;
+};
 
 module.exports = parseError;
