@@ -1,3 +1,13 @@
-[![Build Status](https://travis-ci.org/sravan-s/modular-express-seed.svg?branch=master)](https://travis-ci.org/sravan-s/modular-express-seed)
-# modular-express-seed
-A seed for modular expressjs based API Server Project
+Start App: npm start
+Before push: npm run lint
+
+Dev. Settings:
+app: localhost:5000
+mongodb: localhost27000
+
+common/utilities/db.js
+mongo connection string: mongodb://user:password@localhost:27017/epochDb
+
+use epochDb;
+
+db.createUser( { user: "user", pwd: "admin", roles: ["readWrite"]})

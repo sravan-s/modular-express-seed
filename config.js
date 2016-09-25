@@ -1,5 +1,8 @@
-// Configuration goes here
+var CONFIG = {
+  jwtSecret: 'MyS3cr3tK3Y',
+  jwtSession: {
+    session: false
+  }
+};
 
-const config = {};
-
-module.exports = config;
+module.exports = CONFIG;
