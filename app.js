@@ -5,10 +5,12 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 
 var epochUtilities = require('./utilities');
+var models = require('./common/model-factory');
 var middleWares = require('./common/middlewares');
 
 var routes = require('./common/routes-factory');
 // var middleWares = require('./common/middlewares');
+routes.makeRoutes(models);
 
 app.get('/', function (req, res) {
   res.send('Application up and running!');
