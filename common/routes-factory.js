@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var nonAuthRoute = express.Router();
 
-
 // var CONFIG = require('../config');
 var middlewares = require('./middlewares');
 var epoch = require('../utilities');
@@ -39,6 +38,11 @@ function createApiEndPoint(models) {
       epoch.crud('paginate', model.model, req, res);
     });
 
+    // search
+    tempRoute.get('/api/' + model.$$name + 's/search/', function(req, res) {
+      epoch.crud('search', model.model, req, res);
+    });
+
     // Create new
     tempRoute.post('/api/' + model.$$name + 's', function(req, res) {
       epoch.crud('post', model.model, req, res);
@@ -56,9 +60,8 @@ function createApiEndPoint(models) {
   });
 }
 
-
 // Auth route
-nonAuthRoute.post('/auth', function(req, res) {
+nonAuthRoute.post('/api/auth', function(req, res) {
   var admin = mdls.getModel('admin');
   if (req.body.username && req.body.password) {
     var promise = epoch.crud('getData', admin, req.body);

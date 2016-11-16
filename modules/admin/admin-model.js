@@ -26,6 +26,5 @@ var admin = mongoose.model('Admin', adminSchema);
 
 module.exports = {
   model: admin,
-  schema: adminSchema,
-  isNotAuth: true
+  schema: adminSchema
 };

@@ -9,6 +9,7 @@ var models = require('./common/model-factory');
 var middleWares = require('./common/middlewares');
 
 var routes = require('./common/routes-factory');
+var customRoutes = require('./custom-routes');
 // var middleWares = require('./common/middlewares');
 routes.makeRoutes(models);
 
@@ -18,19 +19,25 @@ app.get('/', function (req, res) {
 
 // Parses request bodies, in a middleware before your handlers,
 // available under the req.body property.
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+  limit: '50mb'
+}));
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: true,
+  limit: '50mb'
 }));
 
 // use morgan to log requests to the console
 app.use(morgan('dev'));
-
 app.use(routes.nonAuthRoute);
+
+app.use('/resources', express.static('uploads/images'));
+app.use('/downloads', express.static('uploads/dms'));
 
 // Auth middleware
 app.use(middleWares.auth.getInTheWay);
 
+app.use(customRoutes.authRoutes);
 app.use(routes.router);
 
 app.listen(4000, function () {

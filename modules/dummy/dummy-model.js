@@ -13,6 +13,5 @@ var Dummy = mongoose.model('dummy', dummySchema);
 
 module.exports = {
   model: Dummy,
-  schema: dummySchema,
-  isNotAuth: true
+  schema: dummySchema
 };

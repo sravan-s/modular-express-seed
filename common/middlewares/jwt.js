@@ -36,7 +36,7 @@ var encrypt = function(claims) {
 };
 
 var verify = function(token) {
-  if (!token) {
+  if (token == 'null' || !token) {
     return false;
   }
   // To Implement
