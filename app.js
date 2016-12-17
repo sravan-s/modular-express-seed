@@ -40,6 +40,6 @@ app.use(middleWares.auth.getInTheWay);
 app.use(customRoutes.authRoutes);
 app.use(routes.router);
 
-app.listen(4000, function () {
+app.listen(process.env.PORT || 4000, function () {
   epochUtilities.log('App listening on port 4000!', 'info');
 });
